@@ -1,0 +1,15 @@
+extends layout
+block content
+  h1= title
+  - let result  = [{ VehicleName: "Yamaha", price: 200000 , Model: "R15"},{VehicleName: "Bugatti", price: 1500, Model: "Veyron"},{VehicleName: "Lamborghini", price: 2000, Model: "Huracan"}]
+  script.
+    function buy(num){
+      alert("You purchased items " + (num+1));
+    } 
+  div.container-fluid
+    div.row
+        each Vehicle, num in result 
+            div.col-sm-2(onClick = `buy(${num})`)
+                p VehicleName: #{Vehicle.VehicleName}
+                p price : #{Vehicle.price}
+                p Model : #{Vehicle.Model}
