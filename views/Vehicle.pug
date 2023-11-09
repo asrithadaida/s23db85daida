@@ -1,7 +1,8 @@
 extends layout
 block content
   h1= title
-  - let result  = [{ VehicleName: "Yamaha", price: 200000 , Model: "R15"},{VehicleName: "Bugatti", price: 1500, Model: "Veyron"},{VehicleName: "Lamborghini", price: 2000, Model: "Huracan"}]
+  //- let result  = [{ VehicleName: "Yamaha", price: 200000 , Model: "R15"},{VehicleName: "Bugatti", price: 1500, Model: "Veyron"},{VehicleName: "Lamborghini", price: 2000, Model: "Huracan"}]
+  - let result = results;
   script.
     function buy(num){
       alert("You purchased items " + (num+1));
