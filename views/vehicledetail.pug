@@ -1,0 +1,24 @@
+extends layout
+block content
+    h1= title
+
+    if (toShow == null)
+        h2 No instance to show
+    else
+        - let vehicleid = toShow._id
+        - let vehiclename = toShow.VehicleName
+        - let price = toShow.price
+        - let model = toShow.Model
+        div
+            div.row
+                div(class='vehicleAttr mr-3') Vehicle ID is:
+                div #{vehicleid}
+            div.row
+                div(class='vehicleAttr mr-3') Vehicle Name is:
+                div #{vechiclename}
+            div.row
+                div(class='vehicleAttr mr-3') Vehicle Price is:
+                div #{price}
+            div.row
+                div(class='vehicleAttr mr-3') Vehicle Model is:
+                div #{model}
