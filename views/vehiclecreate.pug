@@ -1,32 +1,45 @@
 extends layout
-block content
-    h1= title
 
-    form(id='CostumeForm', action="/resource/vehicles", method="POST")
-        div.form-group
-            label.vehicleAttr(for='VehicleName') VehicleName
-            input#VehicleName(type='text', name='VehicleName')
-        div.form-group
-            label.vehicleAttr(for='price') Price
-            input#price(type='number', name='price')
-        div.form-group
-            label.vehicleAttr(for='Model') Model
-            input#Model(type='text', name='Model')
-        input(type="submit")
+block content
+    .container
+        h1= title
+
+        form#CostumeForm(action="/resource/vehicles", method="POST")
+            .form-group
+                label.vehicleAttr(for='VehicleName') Vehicle Name
+                input#VehicleName(type='text', name='VehicleName', class="form-control", placeholder='Enter Vehicle Name', required)
+            .form-group
+                label.vehicleAttr(for='price') Price
+                input#price(type='number' min = 40000, max = 300000, name='price', class="form-control", placeholder='Enter Price', required)
+            .form-group
+                label.vehicleAttr(for='Model') Model
+                input#Model(type='text', name='Model', class="form-control", placeholder='Enter Model', required)
+            input.btn-submit(type="submit", value="Submit", class="btn btn-primary")
+
     script.
-        document.forms['CostumeForm'].addEventListener('submit', (event) => {
+        document.getElementById('CostumeForm').addEventListener('submit', (event) => {
             event.preventDefault();
-            // TODO do something here to show user that form is being submitted
-            fetch(event.target.action, {
+            const form = event.target;
+            // Disable submit button to prevent multiple submissions
+            form.querySelector('.btn-submit').setAttribute('disabled', 'true');
+
+            // Show user that the form is being submitted (could be a loading spinner or message)
+            // For example: You can display a loading spinner or a message here
+
+            fetch(form.action, {
                 method: 'POST',
-                body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+                body: new URLSearchParams(new FormData(form))
             }).then((resp) => {
-                return resp.json(); // or resp.text() or whatever the server sends
+                return resp.json();
             }).then((body) => {
-                alert("Save succeded")
-                // TODO handle body
+                // Re-enable submit button
+                form.querySelector('.btn-submit').removeAttribute('disabled');
+                alert("Save succeeded");
+                // Handle the response body here
             }).catch((error) => {
-                // TODO handle error
-                alert("Save failed " + error )
+                // Re-enable submit button
+                form.querySelector('.btn-submit').removeAttribute('disabled');
+                alert("Save failed: " + error);
+                // Handle the error here
             });
         });

@@ -1,16 +1,22 @@
 extends layout
+
 block content
   h1= title
-  //- let result  = [{ VehicleName: "Yamaha", price: 200000 , Model: "R15"},{VehicleName: "Bugatti", price: 1500, Model: "Veyron"},{VehicleName: "Lamborghini", price: 2000, Model: "Huracan"}]
-  - let result = results;
-  script.
-    function buy(num){
-      alert("You purchased items " + (num+1));
-    } 
-  div.container-fluid
-    div.row
-        each Vehicle, num in result 
-            div.col-sm-2(onClick = `buy(${num})`)
-                p VehicleName: #{Vehicle.VehicleName}
-                p price : #{Vehicle.price}
-                p Model : #{Vehicle.Model}
+
+   a.btn.btn-primary(href='/Vehicle/create') Create 
+
+  - let items = results;
+  div(class="container-fluid")
+    div(class="row m-1")
+      each item in items
+        - let destination = `dispatch(\"/Vehicle/update?id=${item._id}\")`
+        div(class="row-sm-2", class="m-1") Item #{item.VehicleName}(#{item.price}) is #{item.Model}
+        button.btn(class="btn-primary ml-1", onclick= destination) Update
+        button.btn(class="btn-primary ml-1", onclick= destination) delete 
+        button.btn(class="btn-primary ml-1", onclick= destination) detail
+
+
+        script.
+          function dispatch(path){
+            window.location.href=path
+          }
